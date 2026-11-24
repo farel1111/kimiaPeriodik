@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chemistry: The Elements of Everything</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050d1f;--cy:#22e3ff;--li:#b6ff3b;--iv:#f7f1e3;--mut:#9fb6c8;color-scheme:dark;box-sizing:border-box}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--iv);font-family:Poppins,system-ui,sans-serif}
+#bg{position:fixed;inset:0;background:radial-gradient(60vw 60vw at 88% 8%,#0b4a5aaa,transparent),radial-gradient(55vw 55vw at 0% 100%,#12306daa,transparent);animation:bgm 14s ease-in-out infinite alternate}
+@keyframes bgm{to{filter:hue-rotate(25deg) brightness(1.15)}}
+#fx{position:fixed;inset:0;width:100%;height:100%}
+#deck{position:fixed;inset:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px) 0}
+.s{position:absolute;inset:0;padding:clamp(18px,4vw,60px) clamp(18px,6vw,90px) 70px;display:flex;flex-direction:column;justify-content:center;gap:2vh;opacity:0;visibility:hidden;transform:scale(1.05);filter:blur(14px);transition:opacity .9s,transform .9s,filter .9s,visibility .9s;overflow:auto}
+.s.on{opacity:1;visibility:visible;transform:none;filter:none}
+.a{opacity:0;transform:translateY(26px)}
+.s.on .a{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i)*.11s + .3s)}
+.f{opacity:0;transform:translateY(16px) scale(.97);transition:.7s cubic-bezier(.2,.7,.2,1)}.f.sh{opacity:1;transform:none}
+h1{font-size:clamp(2.2rem,6.6vw,6rem);font-weight:800;line-height:1;letter-spacing:-.03em}
+h2{font-size:clamp(1.5rem,3.6vw,3.1rem);font-weight:800;line-height:1.1;letter-spacing:-.02em}
+h3{font-size:clamp(1rem,1.7vw,1.45rem);font-weight:600}
+p,li{font-size:clamp(.82rem,1.4vw,1.2rem);color:#d9e4ee;line-height:1.5;list-style:none}
+.grad{background:linear-gradient(90deg,var(--cy),var(--li),var(--cy));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite}
+@keyframes sh{to{background-position:200%}}
+.lab{color:var(--cy);letter-spacing:.28em;font-size:clamp(.65rem,1vw,.85rem);text-transform:uppercase;font-weight:600}
+.g{display:grid;gap:clamp(10px,1.5vw,20px);grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr))}
+.card{background:linear-gradient(145deg,#ffffff14,#ffffff05);border:1px solid #ffffff22;border-radius:18px;padding:clamp(12px,1.5vw,22px);backdrop-filter:blur(8px);transition:transform .4s,border-color .4s}
+.card:hover{transform:translateY(-6px);border-color:var(--cy)}
+.card b{color:var(--li)}
+.em{font-size:clamp(2rem,4vw,3.4rem);display:inline-block;animation:bob 3s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-10px) rotate(6deg)}}
+.cv{width:100%;height:100%;min-height:240px;display:block}
+.row{display:flex;gap:3vw;align-items:center;flex-wrap:wrap}.row>*{flex:1 1 300px}
+.chip{display:inline-block;padding:.2em .8em;border:1px solid #22e3ff66;border-radius:99px;font-size:clamp(.7rem,1.1vw,.95rem);margin:2px;color:var(--cy)}
+#pb{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--cy),var(--li));transition:width .7s;z-index:9;box-shadow:0 0 12px var(--cy)}
+#nv{position:fixed;right:18px;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;align-items:center;z-index:7;font-size:.8rem;color:var(--mut)}
+#nv button{background:#ffffff14;border:1px solid #ffffff33;color:var(--iv);border-radius:50%;width:38px;height:38px;cursor:pointer;font-size:1rem}
+#nv button:hover,#nv button:focus-visible{background:var(--cy);color:#041018;outline:none}
+#nt{position:fixed;left:0;right:0;bottom:0;background:#020812f2;border-top:1px solid var(--cy);padding:16px 24px calc(16px + env(safe-area-inset-bottom,0px));font-size:.92rem;transform:translateY(100%);transition:.4s;z-index:8}#nt.on{transform:none}
+.pt{display:grid;grid-template-columns:repeat(18,1fr);gap:2px;max-width:1000px;width:100%}
+.e{aspect-ratio:1;font-size:clamp(.42rem,.95vw,.85rem);display:flex;align-items:center;justify-content:center;border-radius:4px;font-weight:600;color:#06121f;opacity:0;transform:scale(.3)}
+.s.on .e{opacity:1;transform:none;transition:.5s calc(var(--d)*9ms + .6s)}
+.e:hover{transform:scale(1.8)!important;z-index:3;transition:.2s!important}
+.pbx{position:relative;height:clamp(90px,17vh,150px);border-radius:12px;background:#02101f;border:1px solid #ffffff1f;overflow:hidden;margin-bottom:10px}
+.mo{position:absolute;display:flex;align-items:center;animation:fl var(--t) ease-in-out infinite alternate}
+@keyframes fl{to{transform:translate(var(--dx),var(--dy))}}
+.d{width:15px;height:15px;border-radius:50%;margin:0 -3px;background:radial-gradient(circle at 30% 30%,#fff,var(--c) 40%,#06121f)}
+.st{display:flex;gap:14px;align-items:center}
+.st i{font-style:normal;width:2.2em;height:2.2em;border-radius:50%;background:var(--li);color:#06121f;display:grid;place-items:center;font-weight:800;flex:none}
+.nt{display:inline-grid;grid-template-columns:auto auto;align-items:center;gap:.05em;font-size:clamp(4rem,13vw,10rem);font-weight:800;line-height:1;text-shadow:0 0 40px #22e3ff66}
+.nt span{display:grid;font-size:.36em;text-align:right;line-height:1.1}.nt span b:first-child{color:var(--cy)}.nt span b:last-child{color:var(--li)}
+.tg{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;position:relative;margin:8px 0}
+.tg i{aspect-ratio:1;border-radius:3px;background:var(--cy);opacity:var(--o)}
+.ar{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(1.8rem,3.5vw,3rem);text-shadow:0 0 14px #000;animation:pu 2s ease-in-out infinite}
+@keyframes pu{50%{transform:scale(1.25);opacity:.6}}
+.op{display:grid;gap:5px;margin-top:8px}
+.op button{text-align:left;background:#ffffff10;border:1px solid #ffffff2a;color:var(--iv);border-radius:10px;padding:6px 10px;font:inherit;font-size:clamp(.72rem,1.1vw,.95rem);cursor:pointer;transition:.3s}
+.op button:hover{border-color:var(--cy)}.op .ok{background:#b6ff3b33;border-color:var(--li)}.op .no{background:#ff5d6c33;border-color:#ff5d6c}
+.ans{font-size:clamp(.7rem,1vw,.9rem);color:var(--li);margin-top:8px}
+.tw{font-size:clamp(1.3rem,3.4vw,2.8rem);font-weight:300;line-height:1.3}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+#bg{background:linear-gradient(#ffffff07 1px,transparent 1px) 0 0/56px 56px,linear-gradient(90deg,#ffffff07 1px,transparent 1px) 0 0/56px 56px,radial-gradient(70vw 50vw at 90% -10%,#0e6b8366,transparent),#030814;animation:none;overflow:hidden}
+#bg::before,#bg::after{content:"";position:absolute;width:46vw;height:46vw;border-radius:50%;filter:blur(90px);opacity:.42;animation:orb 18s ease-in-out infinite alternate}
+#bg::before{background:#22e3ff;left:-10vw;top:-12vw}#bg::after{background:#7c5cff;right:-12vw;bottom:-14vw;animation-delay:-9s}
+@keyframes orb{to{transform:translate(12vw,8vh) scale(1.25)}}
+.s::after{content:attr(data-n);position:absolute;right:3vw;bottom:0;font-size:20vw;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1px #ffffff1a;pointer-events:none;z-index:-1}
+h1{font-size:clamp(2.6rem,8vw,7.5rem);text-shadow:0 0 70px #22e3ff55}
+.s.on h1.a,.s.on h2.a{animation:hd 1.3s cubic-bezier(.2,.7,.2,1) .25s both}
+@keyframes hd{from{letter-spacing:.16em;filter:blur(14px);opacity:0}}
+.lab{display:inline-flex;align-items:center;gap:.7em;padding:.35em 1.1em;border:1px solid #22e3ff55;border-radius:99px;background:#22e3ff14;width:fit-content;letter-spacing:.2em}
+.lab::before{content:"";width:.6em;height:.6em;border-radius:50%;background:var(--li);box-shadow:0 0 12px var(--li);animation:pu 1.6s infinite}
+.card{background:linear-gradient(160deg,#ffffff1f,#ffffff06);border:1px solid #ffffff26;border-radius:22px;box-shadow:0 24px 50px -24px #000,inset 0 1px 0 #ffffff33}
+.card:hover{border-color:var(--cy);box-shadow:0 0 44px -10px var(--cy),inset 0 1px 0 #ffffff44}
+.g,.row{perspective:1000px}
+.cv{filter:drop-shadow(0 0 34px #22e3ff55)}
+.e{box-shadow:inset 0 1px 0 #fff6,inset 0 -4px 8px #0003}
+#nv{background:#ffffff12;backdrop-filter:blur(12px);padding:6px 10px;border-radius:99px;border:1px solid #ffffff22}
+#cgl{position:fixed;left:0;top:0;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;background:radial-gradient(#22e3ff2e,transparent 65%);pointer-events:none;z-index:2;mix-blend-mode:screen}
+.hud{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.hud span{padding:.3em .9em;border-radius:99px;background:#ffffff14;border:1px solid #ffffff2a;font-weight:600;font-size:clamp(.75rem,1.2vw,1rem)}.hud b{color:var(--li)}
+.tm{height:9px;border-radius:9px;background:#ffffff18;overflow:hidden}.tm i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--li),var(--cy),#ff4f6d)}
+.gb{font:inherit;color:var(--iv);cursor:pointer;border:1px solid #ffffff33;border-radius:16px;padding:.7em 1em;background:linear-gradient(160deg,#ffffff1f,#ffffff08);font-size:clamp(.9rem,1.6vw,1.4rem);font-weight:600;transition:.25s}
+.gb:hover{transform:translateY(-3px);border-color:var(--cy);box-shadow:0 0 30px -6px var(--cy)}.gb.ok{background:#b6ff3b44;border-color:var(--li)}.gb.no{background:#ff4f6d44;border-color:#ff4f6d;animation:sk .4s}
+@keyframes sk{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.big{font-size:clamp(1.5rem,3.4vw,2.8rem);font-weight:800;margin:4px 0}
+.cf{position:fixed;width:9px;height:9px;border-radius:50%;z-index:30;pointer-events:none;animation:cf .9s cubic-bezier(.1,.7,.3,1) forwards}@keyframes cf{to{transform:translate(var(--dx),var(--dy)) scale(0)}}
+.mt{display:grid;grid-template-columns:1.4em repeat(18,1fr);gap:3px;max-width:1000px;width:100%}
+.mt button{aspect-ratio:1;border:1px solid #ffffff22;border-radius:6px;background:linear-gradient(160deg,#ffffff1f,#ffffff08);color:var(--iv);font:inherit;font-weight:600;font-size:clamp(.45rem,1vw,.9rem);cursor:pointer;padding:0;transition:.2s}
+.mt button:hover{background:#22e3ff55;transform:scale(1.25);z-index:2}.mt .ok3{box-shadow:0 0 18px #fff9}.mt .no{background:#ff4f6d99;animation:sk .4s}.mt .hl{animation:hl 1s infinite}@keyframes hl{50%{box-shadow:0 0 0 3px var(--li),0 0 22px var(--li)}}
+.cv{cursor:grab;touch-action:none}
+.xt{display:grid;grid-template-columns:repeat(18,1fr);gap:2px}
+.xb{aspect-ratio:1;border:0;border-radius:5px;color:#06121f;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;padding:0;line-height:1.05;opacity:0;transform:scale(.3);box-shadow:inset 0 1px 0 #fff6,inset 0 -4px 8px #0003}
+.s.on .xb{opacity:1;transform:none;transition:transform .5s calc(var(--d)*9ms + .5s),opacity .5s calc(var(--d)*9ms + .5s),background .5s}
+.xb:hover{transform:scale(1.5)!important;z-index:3;transition:.2s!important}.xb.sel{outline:3px solid #fff;z-index:2;box-shadow:0 0 24px #fff}
+.xb i,.xb u{font-style:normal;text-decoration:none;font-size:clamp(.28rem,.55vw,.55rem);opacity:.75}.xb b{font-size:clamp(.5rem,1.1vw,1rem)}
+@media(max-width:700px){.xb i,.xb u{display:none}}
+.tile{width:clamp(84px,9vw,124px);aspect-ratio:1;border-radius:16px;background:var(--c);color:#06121f;display:grid;place-items:center;position:relative;box-shadow:0 0 44px -6px var(--c),inset 0 2px 0 #fff7;flex:none}
+.tile small{position:absolute;left:9px;top:6px;font-weight:600;font-size:.8rem}.tile b{font-size:clamp(1.9rem,4vw,3.3rem);font-weight:800;color:#06121f}.tile em{position:absolute;bottom:6px;font-style:normal;font-size:.75rem;font-weight:600}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}.fg .w{grid-column:1/-1}
+.fc{background:#ffffff0d;border:1px solid #ffffff1f;border-radius:12px;padding:6px 10px}.fc span{display:block;color:var(--mut);font-size:.68rem}.fc b{color:var(--iv);font-size:clamp(.8rem,1.2vw,1rem)}.fc sup{font-size:.7em}
+</style></head><body>
+<div id="bg"></div><canvas id="fx"></canvas><div id="pb"></div>
+<div id="deck">
+
+<section class="s"><div class="row"><div>
+<p class="lab a">Presentasi Perkuliahan · Kimia Dasar</p>
+<h1 class="a">CHEMISTRY:<br><span class="grad">THE ELEMENTS OF EVERYTHING</span></h1>
+<p class="a" style="margin-top:2vh;max-width:30em">Mengenal Unsur, Senyawa, dan Sistem Tabel Periodik.</p>
+<p class="a" style="margin-top:3vh;color:var(--mut);font-size:.8rem">Tekan → atau Spasi untuk mulai · N = catatan presenter · F = layar penuh</p>
+</div><div style="height:min(62vh,560px)"><canvas id="c1" class="cv"></canvas></div></div></section>
+
+<section class="s"><div class="row"><div>
+<p class="lab a">Pendahuluan</p>
+<h2 class="a">Mengapa air, garam, dan oksigen memiliki sifat yang berbeda padahal semuanya tersusun dari atom?</h2>
+<div class="g a" style="margin-top:2vh"><div class="card"><h3>H₂O</h3><p>Air · cair, pelarut universal</p></div><div class="card"><h3>NaCl</h3><p>Garam · padatan kristal ionik</p></div><div class="card"><h3>O₂</h3><p>Oksigen · gas, mendukung pembakaran</p></div></div>
+<p class="f" style="margin-top:2vh;color:var(--li)">Jawabannya: jenis atom, cara atom berikatan, dan susunannya menentukan sifat zat.</p>
+</div><div style="height:min(55vh,480px)"><canvas id="c2" class="cv"></canvas></div></div></section>
+
+<section class="s"><p class="lab a">Aplikasi Kimia</p><h2 class="a">Kimia ada di mana-mana</h2>
+<div class="g"><div class="card a"><span class="em">🍎</span><h3>Makanan & Minuman</h3><p>Pengawet, fermentasi, pemanis, dan rasa.</p></div>
+<div class="card a"><span class="em">💊</span><h3>Kesehatan & Obat</h3><p>Aspirin, antibiotik, vaksin, dan infus.</p></div>
+<div class="card a"><span class="em">📱</span><h3>Teknologi</h3><p>Silikon (Si) pada chip dan layar elektronik.</p></div>
+<div class="card a"><span class="em">🔋</span><h3>Energi & Baterai</h3><p>Baterai litium-ion dan sel bahan bakar.</p></div>
+<div class="card a"><span class="em">🏗️</span><h3>Konstruksi & Industri</h3><p>Semen, baja (Fe), kaca, dan polimer.</p></div></div></section>
+
+<section class="s"><p class="lab a">Tujuan Pembelajaran</p><h2 class="a">Setelah sesi ini, kamu mampu…</h2>
+<div class="g" id="tj"></div></section>
+
+<section class="s"><p class="lab a">Klasifikasi Materi</p><h2 class="a">Unsur, Senyawa, dan Campuran</h2>
+<div class="g" id="pg"></div></section>
+
+<section class="s"><div class="row"><div style="height:min(66vh,560px)"><canvas id="c6" class="cv"></canvas></div><div>
+<p class="lab a">Struktur Atom · contoh Na (Z = 11)</p><h2 class="a">Inti kecil, ruang elektron luas</h2>
+<div class="g a" style="margin:2vh 0"><div class="card"><b style="color:#ff5d6c">● Proton (+)</b><p>Di inti, bermuatan positif.</p></div><div class="card"><b style="color:#c9d3dd">● Neutron (0)</b><p>Di inti, tidak bermuatan.</p></div><div class="card"><b style="color:var(--cy)">● Elektron (−)</b><p>Mengorbit di kulit atom.</p></div></div>
+<div class="card a"><p><b>Nomor atom (Z)</b> = jumlah proton</p><p><b>Nomor massa (A)</b> = proton + neutron</p></div></div></div></section>
+
+<section class="s"><div class="row" style="align-items:end"><div><p class="lab a">Sistem Tabel Periodik</p><h2 class="a">18 golongan, 7 periode</h2></div>
+<div class="a" id="lg" style="flex:2 1 400px"></div></div>
+<div class="pt a" id="pt"></div>
+<div class="g a"><div class="card"><b>1869</b><p>Mendeleev menyusun berdasar massa atom.</p></div><div class="card"><b>Moseley</b><p>Urutan modern berdasar nomor atom.</p></div><div class="card"><b>Valensi</b><p>Na: 2·8·1 → golongan 1, valensi 1.</p></div><div class="card"><b>Tebak!</b><p>Unsur apa Z = 26 dengan simbol Fe?</p></div></div></section>
+
+<section class="s gm"><div class="row" style="align-items:stretch"><div style="flex:2 1 520px;min-width:0"><p class="lab a">Jelajahi Tabel Periodik</p>
+<h2 class="a" style="font-size:clamp(1.3rem,2.8vw,2.4rem);margin-top:1vh">Massa atom, konfigurasi, dan atom 3D tiap unsur</h2>
+<div class="hud a" id="xm" style="margin:1.2vh 0"></div><div class="xt a" id="xt"></div><div class="a" id="xl" style="margin-top:1vh"></div>
+<p class="a" style="color:var(--mut);font-size:.78rem;margin-top:.8vh">Arahkan kursor atau klik unsur. Ar = massa atom relatif (rata-rata berbobot isotop); tanda [ ] = nomor massa isotop paling stabil (unsur radioaktif). Elektronegativitas (Pauling) tersedia untuk Z 1–54. Seret atom 3D untuk memutarnya.</p></div>
+<div class="card a" style="flex:1 1 340px"><div style="height:clamp(150px,27vh,250px)"><canvas id="cx" class="cv" style="min-height:140px"></canvas></div><div id="xd"></div></div></div></section>
+
+<section class="s"><p class="lab a">Ion</p><h2 class="a">Elektron berpindah, ion terbentuk</h2>
+<svg viewBox="0 0 800 330" class="a" style="width:100%;max-height:46vh" font-family="Poppins" text-anchor="middle">
+<g id="ion"></g></svg>
+<div class="g"><div class="card f sh"><b>Kation (+)</b><p>Atom kehilangan elektron → Na → Na⁺ + e⁻</p></div><div class="card f sh"><b>Anion (−)</b><p>Atom menerima elektron → Cl + e⁻ → Cl⁻</p></div></div></section>
+
+<section class="s"><p class="lab a">Tren Periodik</p><h2 class="a">Arah kecenderungan di tabel periodik</h2>
+<div class="g" id="tr"></div>
+<p class="a" style="color:var(--mut)">Tren adalah kecenderungan umum. Pengecualian ada, mis. energi ionisasi Mg &gt; Al dan P &gt; S.</p></section>
+
+<section class="s"><div class="row"><div style="height:min(44vh,360px)"><canvas id="c10a" class="cv"></canvas><h3 style="text-align:center">Ikatan ion · NaCl</h3></div>
+<div style="height:min(44vh,360px)"><canvas id="c10b" class="cv"></canvas><h3 style="text-align:center">Ikatan kovalen · H₂O</h3></div></div>
+<div class="g a"><div class="card"><b>Ion</b><p>Na melepas, Cl menerima elektron. Gaya tarik ion berlawanan membentuk kisi kristal.</p></div><div class="card"><b>Kovalen</b><p>O dan H berbagi pasangan elektron, membentuk molekul bersudut ±104,5°.</p></div></div></section>
+
+<section class="s"><div class="row"><div><p class="lab a">Visualisasi Tren · Periode 3 (ilustrasi kualitatif)</p>
+<svg id="ch" viewBox="0 0 640 340" class="a" style="width:100%" font-family="Poppins"></svg></div>
+<div><div class="card a" id="lgc"></div>
+<div class="card a" style="margin-top:2vh"><h3>🔮 Prediksi</h3><p>Dari Na ke Cl, mana tren yang naik dan mana yang turun? Mengapa?</p>
+<p class="f" style="color:var(--li);margin-top:8px">Jari-jari turun; energi ionisasi &amp; elektronegativitas naik, karena muatan inti efektif bertambah.</p></div></div></div></section>
+
+<section class="s"><div class="row"><div style="text-align:center"><p class="lab a">Soal Notasi Atom</p><div class="nt a"><span><b>23</b><b>11</b></span>Na</div></div>
+<div style="display:grid;gap:1.3vh">
+<div class="card st f"><i>1</i><p>Nomor atom <b>Z = 11</b> (angka bawah)</p></div>
+<div class="card st f"><i>2</i><p>Proton = Z = <b>11</b></p></div>
+<div class="card st f"><i>3</i><p>Neutron = A − Z = 23 − 11 = <b>12</b></p></div>
+<div class="card st f"><i>4</i><p>Atom netral: elektron = proton = <b>11</b></p></div>
+<div class="card st f"><i>5</i><p>Na⁺ melepas 1 e⁻ → elektron = 11 − 1 = <b>10</b></p></div></div></div></section>
+
+<section class="s"><p class="lab a">Project Based Learning</p><h2 class="a">PETA KIMIA <span class="grad">DI SEKITAR KITA</span></h2>
+<div class="g"><div class="card a"><b>❓ Pertanyaan pemantik</b><p>Unsur dan senyawa apa yang kamu sentuh sebelum sarapan?</p></div>
+<div class="card a"><b>🎯 Tujuan</b><p>Mengidentifikasi ≥ 10 unsur/senyawa dan mengaitkannya dengan sifatnya.</p></div>
+<div class="card a"><b>🧭 Tahapan</b><p>Amati → catat → klasifikasi → petakan ke tabel periodik → presentasi.</p></div>
+<div class="card a"><b>🗺️ Hasil akhir</b><p>Poster peta kimia + presentasi 5 menit.</p></div>
+<div class="card a"><b>✅ Penilaian</b><p>Konsep 40% · Analisis 25% · Visual 20% · Presentasi 15%</p></div></div></section>
+
+<section class="s"><p class="lab a">Evaluasi Akhir</p><h2 class="a">Kuis interaktif <span style="font-size:.5em;color:var(--mut)">klik jawaban · tekan → untuk membuka kunci</span></h2><div class="g" id="qz"></div></section>
+
+<section class="s gm"><div class="row"><div style="height:min(62vh,540px);position:relative"><canvas id="cg" class="cv"></canvas><div id="gn" style="position:absolute;left:0;top:0"></div></div><div>
+<p class="lab a">🎮 Minigame 1 · Bangun Atom</p><h2 class="a" id="gm1t" style="margin-top:1vh"></h2>
+<div class="hud a" style="margin:1.5vh 0"><span>Skor <b id="s1">0</b></span><span>Misi <b id="m1">1/5</b></span><button class="gb" id="hb" style="padding:.2em .9em;font-size:.9rem">💡 Petunjuk</button></div>
+<div class="g" id="ctl"></div><p id="hn1" style="margin-top:1.5vh;color:var(--li)"></p></div></div></section>
+
+<section class="s gm"><div style="max-width:920px;width:100%;margin:auto;display:grid;gap:2vh"><p class="lab a">🎮 Minigame 2 · Tebak Unsur Kilat</p>
+<div class="hud a"><span>Skor <b id="s2">0</b></span><span>Combo <b id="c2">0</b>×</span><span>Soal <b id="q2">0/10</b></span></div>
+<div class="tm a"><i id="tb"></i></div><h2 id="qq" class="a" style="min-height:2.4em"></h2><div class="g" id="qo"></div></div></section>
+
+<section class="s gm"><p class="lab a">🎮 Minigame 3 · Buru Unsur di Tabel Periodik</p><h2 id="mq" class="a"></h2>
+<div class="hud a"><span>Skor <b id="s3">0</b></span><span>Misi <b id="m3">0/8</b></span><button class="gb" id="hb3" style="padding:.2em 1em;font-size:1rem">▶ Mulai</button></div>
+<div class="mt a" id="mt"></div></section>
+
+<section class="s"><p class="lab a">Kesimpulan</p><h2 class="a">Atom → ion → senyawa → <span class="grad">dunia</span></h2>
+<div class="g"><div class="card a"><span class="em">⚗️</span><h3>Materi</h3><p>Unsur satu jenis atom, senyawa terikat kimia, campuran bercampur fisik.</p></div>
+<div class="card a"><span class="em">⚛️</span><h3>Atom</h3><p>Proton (+) dan neutron (0) di inti, elektron (−) di kulit. Z = proton, A = proton + neutron.</p></div>
+<div class="card a"><span class="em">🧬</span><h3>Tabel periodik</h3><p>18 golongan, 7 periode. Elektron valensi menentukan sifat dan golongan.</p></div>
+<div class="card a"><span class="em">⚡</span><h3>Ion &amp; ikatan</h3><p>Kation melepas, anion menerima elektron. Ikatan ion memindahkan, kovalen membagi elektron.</p></div>
+<div class="card a"><span class="em">📈</span><h3>Tren periodik</h3><p>Jari-jari turun ke kanan; energi ionisasi dan elektronegativitas naik. Ada pengecualian.</p></div></div></section>
+
+<section class="s"><div class="row"><div><p class="lab a">Penutup</p>
+<h1 class="a"><span class="grad">Terima kasih</span></h1>
+<p class="a" style="margin:1vh 0 2.5vh">Mari berdiskusi: ada pertanyaan atau tanggapan?</p>
+<div class="card a" style="border-left:4px solid var(--li)"><p class="lab" style="margin-bottom:1vh">Refleksi</p><p class="tw" style="font-size:clamp(1.05rem,2.3vw,1.9rem)">“Jika seluruh materi di sekitar kita tersusun dari unsur dan senyawa, seberapa besar peran kimia dalam membentuk dunia yang kita tinggali?”</p></div>
+<div class="a" style="margin-top:2.5vh"><p style="color:var(--mut);font-size:.8rem;margin-bottom:6px">Referensi ilmiah</p><span class="chip">IUPAC · iupac.org</span><span class="chip">Royal Society of Chemistry · rsc.org</span><span class="chip">OpenStax Chemistry 2e · openstax.org</span></div>
+<button class="gb a" id="rs" style="margin-top:2.5vh;padding:.4em 1.3em;font-size:1rem">↻ Ulang dari awal</button>
+</div><div style="height:min(64vh,560px)"><canvas id="c15" class="cv"></canvas></div></div></section>
+</div>
+
+<div id="nv"><button id="pv" aria-label="Sebelumnya">‹</button><span id="ct"></span><button id="nx" aria-label="Berikutnya">›</button></div>
+<div id="nt"></div>
+<script>
+const $=(q,e=document)=>e.querySelector(q),$$=(q,e=document)=>[...e.querySelectorAll(q)];
+const S=$$('.s'),NT=[
+"Buka dengan cover. Biarkan atom berputar 3D sambil menyapa audiens.",
+"TANYA audiens dulu, beri 20 detik menebak. Tekan → untuk membuka jawaban.",
+"Tanya: aplikasi kimia mana yang paling sering kamu pakai hari ini?",
+"Bacakan singkat enam tujuan. Tegaskan kita akan menutup dengan soal hitung dan kuis.",
+"Arahkan ke partikel yang bergerak: unsur = satu jenis, senyawa = terikat, campuran = bercampur biasa.",
+"Putar perhatian ke inti dan kulit. Tanya: berapa proton, neutron, elektron pada Na?",
+"Arahkan kursor ke kotak unsur. Tanya: golongan berapa Na dan Cl? Tebak unsur Z = 26.",
+"Hover tiap unsur: lihat massa atom, konfigurasi, dan atom 3D. Ganti mode warna. Tanya: di mana unsur paling elektronegatif? Mengapa massa atom tidak bulat?",
+"Amati elektron berpindah dari Na ke Cl. Tanya: mengapa Na⁺ lebih kecil dari Na?",
+"Tunjukkan panah tiap tren. Ingatkan: ini kecenderungan umum, ada pengecualian.",
+"Bandingkan kisi NaCl dan molekul H₂O. Diskusi 1 menit: mana yang titik lelehnya lebih tinggi?",
+"Grafik kualitatif, bukan data eksperimen. Minta prediksi, lalu → untuk jawaban.",
+"Tekan → bertahap, satu langkah tiap kali. Minta audiens menjawab sebelum dibuka.",
+"Jelaskan proyek, bagikan rubrik, beri waktu diskusi kelompok singkat.",
+"Minta voting angkat tangan per soal. Tekan → untuk membuka kunci jawaban satu per satu.",
+"Minigame 1: minta satu mahasiswa maju membangun atom. Gerakkan mouse untuk memutar objek 3D.",
+"Minigame 2: kuis kilat. Bisa dimainkan lomba antar kelompok, catat skor tertinggi.",
+"Minigame 3: buru unsur di tabel periodik. Tanyakan alasan sebelum mengklik.",
+"Rangkum lima poin kesimpulan sambil menunjuk kartunya. Tanya: poin mana yang paling mudah diingat?",
+"Tutup dengan refleksi. Beri ruang hening 10 detik sebelum tanya jawab."];
+let cur=-1;
+S.forEach(s=>$$('.a',s).forEach((e,i)=>e.style.setProperty('--i',i)));
+function go(n,b){if(n<0||n>=S.length||n==cur)return;S.forEach((s,i)=>s.classList.toggle('on',i==n));$$('.f',S[n]).forEach(e=>e.classList.toggle('sh',!!b||e.classList.contains('card')&&n==8));cur=n;$('#pb').style.width=(n+1)/S.length*100+'%';$('#ct').textContent=(n+1)+' / '+S.length;$('#nt').textContent='🎤 '+NT[n]}
+function mark(c){if(c.dataset.d)return;c.dataset.d=1;$$('button',c).forEach((b,i)=>{if(i==c.dataset.k)b.classList.add('ok')})}
+function nx(){const f=$$('.f:not(.sh)',S[cur])[0];if(f){f.classList.add('sh');if(f.dataset.q)mark(f.parentNode)}else go(cur+1)}
+function pv(){go(cur-1,1)}
+$('#nx').onclick=nx;$('#pv').onclick=pv;
+addEventListener('keydown',e=>{if(e.target.closest('.gm')&&e.target.tagName=='BUTTON'&&(e.key==' '||e.key=='Enter'))return;if('ArrowRight PageDown Enter'.includes(e.key)||e.key==' '){e.preventDefault();nx()}else if(e.key=='ArrowLeft'||e.key=='PageUp')pv();else if(e.key=='n'||e.key=='N')$('#nt').classList.toggle('on');else if(e.key=='f'||e.key=='F')document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.()});
+let tx=0;addEventListener('touchstart',e=>tx=e.touches[0].clientX);addEventListener('touchend',e=>{if(e.target.closest('canvas'))return;const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60)d<0?nx():pv()});
+
+// Tujuan
+['Membedakan unsur, senyawa, dan campuran','Menjelaskan struktur atom','Membaca tabel periodik','Menjelaskan pembentukan ion','Menganalisis sifat dan tren periodik','Menyelesaikan soal kimia sederhana'].forEach((t,i)=>$('#tj').insertAdjacentHTML('beforeend',`<div class="card a"><b style="font-size:2.4rem;font-weight:800">${i+1}</b><p>${t}</p></div>`));
+$$('#tj .a').forEach((e,i)=>e.style.setProperty('--i',i+2));
+
+// Partikel
+function mo(k){const c=['#22e3ff','#ff5d6c','#b6ff3b','#f7f1e3'];const d=(x,s)=>`<i class="d" style="--c:${x};${s||''}"></i>`;
+ if(k==0)return d(c[0])+d(c[0]);if(k==1)return d(c[1],'width:20px;height:20px')+d(c[3],'width:11px;height:11px')+d(c[3],'width:11px;height:11px');return d(c[2])}
+const PG=[['Unsur','Zat murni dari satu jenis atom.',['Fe','Au','O₂'],[0,0,0,0,0,0,0,0]],['Senyawa','Dua unsur atau lebih terikat kimia, perbandingan tetap.',['H₂O','NaCl','CO₂'],[1,1,1,1,1,1,1,1]],['Campuran','Gabungan fisik, perbandingan bebas, mudah dipisah.',['Udara','Air garam'],[0,1,2,0,1,2,2,1]]];
+PG.forEach(([n,d,ex,ms])=>{let h=`<div class="card a"><h3>${n}</h3><div class="pbx">`;ms.forEach(k=>h+=`<div class="mo" style="left:${Math.random()*80+3}%;top:${Math.random()*70+5}%;--t:${2+Math.random()*3}s;--dx:${Math.random()*30-15}px;--dy:${Math.random()*30-15}px">${mo(k)}</div>`);h+=`</div><p>${d}</p>${ex.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`;$('#pg').insertAdjacentHTML('beforeend',h)});
+$$('#pg .a').forEach((e,i)=>e.style.setProperty('--i',i+2));
+
+// Tabel periodik
+const SY="H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og".split(' ');
+const CT={ak:['Logam alkali','#ff6b6b'],at:['Alkali tanah','#ffa94d'],tr:['Logam transisi','#ffd93d'],pt:['Logam pasca-transisi','#7ee8a7'],md:['Metaloid','#4dd6c1'],nm:['Nonlogam','#5ab0ff'],hl:['Halogen','#b18cff'],ng:['Gas mulia','#ff8ad8'],ln:['Lantanida','#c8f26b'],ac:['Aktinida','#e0a96d']};
+function cat(z){const i=a=>a.includes(z);if(i([3,11,19,37,55,87]))return'ak';if(i([4,12,20,38,56,88]))return'at';if(i([5,14,32,33,51,52]))return'md';if(i([1,6,7,8,15,16,34]))return'nm';if(i([9,17,35,53,85,117]))return'hl';if(i([2,10,18,36,54,86,118]))return'ng';if(z>=57&&z<=71)return'ln';if(z>=89&&z<=103)return'ac';if(i([13,31,49,50,81,82,83,84,113,114,115,116]))return'pt';return'tr'}
+function pos(z){if(z==1)return[1,1];if(z==2)return[1,18];if(z<=4)return[2,z-2];if(z<=10)return[2,z+8];if(z<=12)return[3,z-10];if(z<=18)return[3,z];if(z<=36)return[4,z-18];if(z<=54)return[5,z-36];if(z<=56)return[6,z-54];if(z<=71)return[9,z-54];if(z<=86)return[6,z-68];if(z<=88)return[7,z-86];if(z<=103)return[10,z-86];return[7,z-100]}
+SY.forEach((s,i)=>{const z=i+1,[r,c]=pos(z),k=CT[cat(z)];$('#pt').insertAdjacentHTML('beforeend',`<div class="e" title="${s} · Z=${z} · ${k[0]}" style="grid-row:${r};grid-column:${c};background:${k[1]};--d:${(r+c)*2}">${s}</div>`)});
+$('#lg').innerHTML=Object.values(CT).map(k=>`<span class="chip" style="border-color:${k[1]};color:${k[1]}">${k[0]}</span>`).join('');
+
+// Ion Na-Cl
+(function(){let h='';const nu=(x,l,z,e)=>`<circle cx="${x}" cy="170" r="110" fill="none" stroke="#ffffff33" stroke-dasharray="5 7"/><circle cx="${x}" cy="170" r="62" fill="url(#gg)"/><text x="${x}" y="176" fill="#06121f" font-weight="800" font-size="24">${l}</text><text x="${x}" y="22" fill="#9fb6c8" font-size="15">${l} (Z=${z}) · ${e}</text>`;
+h+=`<defs><radialGradient id="gg" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#22e3ff"/><stop offset="1" stop-color="#0a3f4c"/></radialGradient></defs>`+nu(190,'Na',11,'2·8·1')+nu(610,'Cl',17,'2·8·7');
+[0,45,90,135,225,270,315].forEach(a=>{const r=a*Math.PI/180;h+=`<circle cx="${610+110*Math.cos(r)}" cy="${170+110*Math.sin(r)}" r="7" fill="#b6ff3b"/>`});
+h+=`<circle cx="500" cy="170" r="7" fill="none" stroke="#b6ff3b" stroke-dasharray="3 3"/>`;
+h+=`<circle r="9" fill="#b6ff3b" style="filter:drop-shadow(0 0 8px #b6ff3b)"><animate attributeName="cx" values="300;400;500;500;300" keyTimes="0;.22;.45;.9;1" dur="5s" repeatCount="indefinite"/><animate attributeName="cy" values="170;105;170;170;170" keyTimes="0;.22;.45;.9;1" dur="5s" repeatCount="indefinite"/></circle>`;
+const L=(x,t,c)=>`<text x="${x}" y="320" font-size="30" font-weight="800" fill="${c}" opacity="0">${t}<animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.4;.5;.9;1" dur="5s" repeatCount="indefinite"/></text>`;
+h+=L(190,'Na⁺ kation','#ff8ad8')+L(610,'Cl⁻ anion','#22e3ff');$('#ion').innerHTML=h})();
+
+// Tren
+[['Jari-jari atom','↙','mengecil ke kanan, membesar ke bawah',(r,c)=>(r+4-c)/8],['Energi ionisasi','↗','naik ke kanan dan ke atas',(r,c)=>(4-r+c)/8],['Elektronegativitas','↗','naik ke kanan dan ke atas',(r,c)=>(4-r+c)/8],['Afinitas elektron','↗','umumnya makin besar ke kanan (gas mulia ≈ 0)',(r,c)=>(4-r+c)/8]].forEach(([n,a,d,f])=>{let g='';for(let r=0;r<5;r++)for(let c=0;c<5;c++)g+=`<i style="--o:${.12+f(r,c)*.85}"></i>`;$('#tr').insertAdjacentHTML('beforeend',`<div class="card a"><h3>${n}</h3><div class="tg">${g}<div class="ar">${a}</div></div><p>${d}</p></div>`)});
+$$('#tr .a').forEach((e,i)=>e.style.setProperty('--i',i+2));
+
+// Grafik
+(function(){const E=['Na','Mg','Al','Si','P','S','Cl'],T=[['Jari-jari atom','#22e3ff',[.95,.8,.68,.6,.52,.47,.42]],['Energi ionisasi','#b6ff3b',[.1,.3,.25,.42,.58,.52,.7]],['Elektronegativitas','#ff8ad8',[.08,.22,.34,.48,.62,.78,.95]]];
+const X=i=>70+i*88,Y=v=>290-v*250;let h=`<style>#ch path{fill:none;stroke-width:4;stroke-linecap:round;stroke-dasharray:1200;stroke-dashoffset:1200}.s.on #ch path{stroke-dashoffset:0;transition:stroke-dashoffset 2.4s ease .8s}</style>`;
+[0,6].forEach(i=>h+=`<rect x="${X(i)-30}" y="20" width="60" height="285" rx="10" fill="#ffffff0d" stroke="#ffffff33" stroke-dasharray="4 4"/>`);
+h+=`<line x1="40" y1="300" x2="610" y2="300" stroke="#9fb6c8"/><line x1="40" y1="20" x2="40" y2="300" stroke="#9fb6c8"/><text x="48" y="14" fill="#9fb6c8" font-size="12">tinggi</text><text x="48" y="318" fill="#9fb6c8" font-size="12">rendah</text>`;
+E.forEach((e,i)=>h+=`<text x="${X(i)}" y="334" text-anchor="middle" fill="#f7f1e3" font-size="15" font-weight="${i%6?400:800}">${e}</text>`);
+T.forEach(([n,c,v])=>{h+=`<path d="M${v.map((y,i)=>X(i)+','+Y(y)).join('L')}" stroke="${c}"/>`;v.forEach((y,i)=>h+=`<circle cx="${X(i)}" cy="${Y(y)}" r="${i%6?4:7}" fill="${c}"/>`)});
+$('#ch').innerHTML=h;$('#lgc').innerHTML='<h3>Legenda</h3>'+T.map(([n,c])=>`<p><b style="color:${c}">━ ${n}</b></p>`).join('')+'<p style="color:#9fb6c8">Na dan Cl disorot. Skala kualitatif, bukan data eksperimen.</p>'})();
+
+// Kuis
+[['Manakah yang merupakan senyawa?',['O₂','Fe','NaCl','Udara'],2,'NaCl: dua unsur terikat secara kimia.'],['Partikel atom yang bermuatan negatif adalah…',['Proton','Neutron','Elektron','Inti'],2,'Elektron bermuatan negatif.'],['Jumlah elektron Na⁺ (Z = 11)?',['10','11','12','23'],0,'11 − 1 = 10 elektron.'],['Satu periode, kiri → kanan, jari-jari atom umumnya…',['bertambah','berkurang','tetap','acak'],1,'Muatan inti efektif naik, elektron lebih tertarik.'],['Analisis: mengapa NaCl berikatan ion?',['Berbagi elektron','Na melepas, Cl menerima e⁻','Keduanya logam','Keduanya gas mulia'],1,'Na⁺ dan Cl⁻ saling tarik secara elektrostatis.']].forEach(([q,o,k,e],i)=>{const d=document.createElement('div');d.className='card a';d.dataset.k=k;d.innerHTML=`<b>${i+1}.</b> <span style="font-size:clamp(.8rem,1.2vw,1rem)">${q}</span><div class="op">${o.map((x,j)=>`<button data-j="${j}">${'ABCD'[j]}. ${x}</button>`).join('')}</div><div class="ans f" data-q="1">✔ ${'ABCD'[k]}. ${e}</div>`;$('#qz').append(d);
+$$('button',d).forEach(b=>b.onclick=()=>{if(d.dataset.d)return;d.dataset.d=1;b.classList.add(b.dataset.j==k?'ok':'no');$$('button',d)[k].classList.add('ok');$('.ans',d).classList.add('sh')})});
+$$('#qz .a').forEach((e,i)=>e.style.setProperty('--i',i+2));
+
+// ===== Mesin 3D (canvas) =====
+const R=(p,a,b)=>{let[x,y,z]=p,c=Math.cos(a),s=Math.sin(a);[x,z]=[x*c+z*s,z*c-x*s];c=Math.cos(b);s=Math.sin(b);[y,z]=[y*c-z*s,z*c+y*s];return[x,y,z]};
+const cvs=[];function sc(id,fn){const cv=$('#'+id);cvs.push({cv,fn,s:cv.closest('.s'),x:cv.getContext('2d')})}
+function atom(sh,sp){const N=[];for(let i=0;i<10;i++){const y=1-i/4.5,r=Math.sqrt(Math.max(0,1-y*y)),a=i*2.4;N.push([[r*Math.cos(a)*.13,y*.13,r*Math.sin(a)*.13],i%2?'#ff5d6c':'#c9d3dd'])}
+ return t=>{const o=[];N.forEach(([p,c])=>o.push({k:'s',p,r:.075,c}));
+ sh.forEach((n,k)=>{const rr=.34+.22*k,tl=[k*1.1+.4,k*.8+.3],pt=a=>R(R([rr*Math.cos(a),0,rr*Math.sin(a)],tl[0],tl[1]),0,0);
+  for(let i=0;i<48;i++)o.push({k:'l',p:pt(i/48*6.283),q:pt((i+1)/48*6.283),c:'rgba(34,227,255,.28)',w:1.5});
+  for(let i=0;i<n;i++)o.push({k:'s',p:pt(t/(700+k*450)*(k%2?-1:1)+i*6.283/n),r:.045,c:'#22e3ff',g:1})});return o}}
+const water=t=>{const b=Math.sin(t/700)*.03,H=[[.43,.34+b,0],[-.43,.34+b,0]];return[{k:'s',p:[0,b,0],r:.27,c:'#ff5d6c'},...H.flatMap(h=>[{k:'l',p:[0,b,0],q:h,c:'rgba(247,241,227,.55)',w:9},{k:'s',p:h,r:.16,c:'#f7f1e3'}])]};
+const lat=t=>{const o=[],q=.58;for(let i=-1;i<2;i++)for(let j=-1;j<2;j++)for(let k=-1;k<2;k++){const na=(i+j+k)%2==0;o.push({k:'s',p:[i*q,j*q,k*q],r:na?.13:.2,c:na?'#a58bff':'#46e08a'});[[1,0,0],[0,1,0],[0,0,1]].forEach(d=>{if(i+d[0]<2&&j+d[1]<2&&k+d[2]<2)o.push({k:'l',p:[i*q,j*q,k*q],q:[(i+d[0])*q,(j+d[1])*q,(k+d[2])*q],c:'rgba(247,241,227,.3)',w:2})})}return o};
+sc('c1',atom([2,4,3,1]));sc('c2',water);sc('c6',atom([2,8,1]));sc('c10a',lat);sc('c10b',water);sc('c15',atom([2,8,6,3]));
+function draw(o,t){const{cv,x}=o,r=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2),w=Math.round(r.width*d),h=Math.round(r.height*d);if(cv.width!=w||cv.height!=h){cv.width=w;cv.height=h}
+ x.clearRect(0,0,w,h);const U=Math.min(w,h)/2*.8,ay=t/2600+MX*.9+DX,ax=.5+Math.sin(t/4000)*.3+MY*.6+DY,P=[];
+ const pr=p=>{const q=R(p,ay,ax),k=3.2/(3.2+q[2]);return{x:w/2+q[0]*k*U,y:h/2+q[1]*k*U,z:q[2],k}};
+ o.fn(t).forEach(e=>{const a=pr(e.p),b=e.q?pr(e.q):a;P.push({e,a,b,z:(a.z+b.z)/2})});
+ P.sort((m,n)=>n.z-m.z);
+ P.forEach(({e,a,b})=>{if(e.k=='l'){x.strokeStyle=e.c;x.lineWidth=e.w*a.k*d;x.lineCap='round';x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();return}
+  const R_=e.r*a.k*U,g=x.createRadialGradient(a.x-R_*.35,a.y-R_*.35,R_*.1,a.x,a.y,R_);g.addColorStop(0,'rgba(255,255,255,.95)');g.addColorStop(.3,e.c);g.addColorStop(1,'#0a1426');
+  x.shadowColor=e.g?e.c:'transparent';x.shadowBlur=e.g?18*d:0;x.fillStyle=g;x.beginPath();x.arc(a.x,a.y,R_,0,6.283);x.fill();x.shadowBlur=0})}
+
+// ===== Minigames & interaksi =====
+var MX=0,MY=0,DX=0,DY=0,dg=0;
+addEventListener('pointerdown',e=>{if(e.target.closest('canvas.cv'))dg=1});addEventListener('pointerup',()=>dg=0);addEventListener('pointermove',e=>{if(dg){DX+=e.movementX*.012;DY+=e.movementY*.012}});
+$('#rs').onclick=()=>go(0);
+S.forEach((s,i)=>s.dataset.n=String(i+1).padStart(2,'0'));
+document.body.insertAdjacentHTML('beforeend','<div id="cgl"></div>');
+addEventListener('mousemove',e=>{MX=e.clientX/innerWidth-.5;MY=e.clientY/innerHeight-.5;$('#cgl').style.transform=`translate(${e.clientX}px,${e.clientY}px)`;const c=e.target.closest('.card');$$('.card[data-t]').forEach(x=>{if(x!==c){x.style.rotate='';delete x.dataset.t}});if(c){const r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.dataset.t=1;c.style.rotate=`${-py} ${px} 0 ${Math.hypot(px,py)*16}deg`}});
+const rnd=a=>a[Math.random()*a.length|0],shuf=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1]);
+function boom(el){const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;for(let i=0;i<22;i++){const s=document.createElement('i'),a=i/22*6.283,d=50+Math.random()*100;s.className='cf';s.style.cssText=`left:${x}px;top:${y}px;--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d}px;background:hsl(${Math.random()*360},90%,62%)`;document.body.append(s);setTimeout(()=>s.remove(),900)}}
+
+// Game 1: Bangun Atom
+const M1=[['Atom Karbon-12',6,6,6],['Ion Na⁺ (A = 23)',11,12,10],['Atom Helium-4',2,2,2],['Ion Cl⁻ (A = 35)',17,18,18],['Ion Mg²⁺ (A = 24)',12,12,10]];
+let g1={p:1,n:0,e:1,i:0,s:0,h:0,l:0};
+const shl=e=>{const o=[];let r=e;for(const c of[2,8,8,18]){if(r<=0)break;o.push(Math.min(c,r));r-=c}return o};
+$('#ctl').innerHTML=[['p','Proton','#ff5d6c'],['n','Neutron','#c9d3dd'],['e','Elektron','#22e3ff']].map(([k,l,c])=>`<div class="card"><b style="color:${c}">● ${l}</b><div class="big" id="v${k}">0</div><div style="display:flex;gap:8px"><button class="gb" data-k="${k}" data-d="-1">−</button><button class="gb" data-k="${k}" data-d="1">+</button></div></div>`).join('');
+$('#ctl').onclick=e=>{const b=e.target.closest('button');if(!b||g1.l||g1.i>=M1.length)return;const k=b.dataset.k,mx={p:20,n:22,e:20};g1[k]=Math.max(k=='p'?1:0,Math.min(mx[k],g1[k]+ +b.dataset.d));u1()};
+$('#hb').onclick=()=>{if(g1.i>=M1.length)return;g1.h++;const m=M1[g1.i];$('#hn1').textContent=g1.h<2?'Petunjuk: Z = jumlah proton. Ion terbentuk saat elektron ≠ proton.':`Target: ${m[1]} proton, ${m[2]} neutron, ${m[3]} elektron.`};
+function u1(){if(g1.i>=M1.length){$('#gm1t').textContent=`Selesai! Skor ${g1.s} 🎉`;$('#gn').innerHTML='';$('#hn1').innerHTML='<button class="gb" id="r1">↻ Main lagi</button>';$('#r1').onclick=()=>{g1={p:1,n:0,e:1,i:0,s:0,h:0,l:0};$('#hn1').textContent='';u1()};return}
+ const m=M1[g1.i];$('#gm1t').textContent='Misi: bangun '+m[0];$('#m1').textContent=(g1.i+1)+'/5';$('#s1').textContent=g1.s;['p','n','e'].forEach(k=>$('#v'+k).textContent=g1[k]);
+ const A=g1.p+g1.n,q=g1.p-g1.e;$('#gn').innerHTML=`<div class="nt" style="font-size:clamp(2.2rem,6vw,4.5rem);grid-template-columns:auto auto auto"><span><b>${A}</b><b>${g1.p}</b></span>${SY[g1.p-1]}<small style="font-size:.4em;align-self:start;color:var(--li)">${q?(Math.abs(q)>1?Math.abs(q):'')+(q>0?'+':'−'):''}</small></div>`;
+ if(g1.p==m[1]&&g1.n==m[2]&&g1.e==m[3]){g1.l=1;g1.s+=Math.max(40,100-g1.h*30);$('#s1').textContent=g1.s;boom($('#gn'));$('#hn1').textContent='✔ Tepat! Berhasil dibangun.';setTimeout(()=>{g1.i++;Object.assign(g1,{p:1,n:0,e:1,h:0,l:0});if(g1.i<M1.length)$('#hn1').textContent='';u1()},1500)}}
+sc('cg',t=>{const N=g1.p+g1.n,o=[],s=N>1?.05*Math.cbrt(N):0;for(let i=0;i<N;i++){const y=1-(i+.5)*2/N,r=Math.sqrt(1-y*y),a=i*2.4,P=Math.floor((i+1)*g1.p/N)>Math.floor(i*g1.p/N);o.push({k:'s',p:[r*Math.cos(a)*s,y*s,r*Math.sin(a)*s],r:.06,c:P?'#ff5d6c':'#c9d3dd'})}
+ shl(g1.e).forEach((n,k)=>{const rr=.42+.2*k,tl=[k*1.1+.4,k*.8+.3],pt=a=>R([rr*Math.cos(a),0,rr*Math.sin(a)],tl[0],tl[1]);for(let i=0;i<48;i++)o.push({k:'l',p:pt(i/48*6.283),q:pt((i+1)/48*6.283),c:'rgba(34,227,255,.28)',w:1.5});for(let i=0;i<n;i++)o.push({k:'s',p:pt(t/(700+k*450)*(k%2?-1:1)+i*6.283/n),r:.045,c:'#22e3ff',g:1})});return o});
+u1();
+
+// Game 2: Tebak Unsur Kilat
+const ZN={1:'Hidrogen',2:'Helium',3:'Litium',6:'Karbon',7:'Nitrogen',8:'Oksigen',9:'Fluor',10:'Neon',11:'Natrium',12:'Magnesium',13:'Aluminium',14:'Silikon',15:'Fosfor',16:'Belerang',17:'Klorin',18:'Argon',19:'Kalium',20:'Kalsium',26:'Besi',29:'Tembaga',35:'Bromin',47:'Perak',50:'Timah',53:'Iodin',79:'Emas',82:'Timbal'},ZK=Object.keys(ZN).map(Number),CN=Object.values(CT).map(k=>k[0]);
+let g2={};
+function r2(){g2={s:0,c:0,q:0,t:0,o:1};$('#s2').textContent=0;$('#c2').textContent=0;$('#q2').textContent='0/10';$('#qq').textContent='Siap? 10 soal, 8 detik per soal. Combo = bonus skor!';$('#qo').innerHTML='<button class="gb" id="go2">▶ Mulai</button>';$('#go2').onclick=nq2}
+function nq2(){if(g2.q>=10){const s=g2.s;$('#qq').textContent=`Selesai! Skor ${s} · ${s>1500?'Profesor Kimia 🧪':s>900?'Asisten Lab ⚗️':'Calon Ilmuwan 🔬'}`;$('#qo').innerHTML='<button class="gb" id="go2">↻ Main lagi</button>';$('#go2').onclick=r2;return}
+ const z=rnd(ZK),sy=SY[z-1],nm=ZN[z],m=Math.random()*3|0;let q,c,pl;
+ if(m==0){q=`Apa simbol unsur ${nm}?`;c=sy;pl=ZK.map(k=>SY[k-1])}else if(m==1){q=`Unsur dengan nomor atom ${z} adalah…`;c=nm;pl=Object.values(ZN)}else{q=`${sy} (${nm}) termasuk…`;c=CT[cat(z)][0];pl=CN}
+ const o=shuf([c,...shuf(pl.filter(x=>x!=c)).slice(0,3)]);g2.q++;g2.o=0;$('#q2').textContent=g2.q+'/10';$('#qq').textContent=q;
+ $('#qo').innerHTML=o.map(x=>`<button class="gb">${x}</button>`).join('');$$('#qo button').forEach(b=>b.onclick=()=>j2(b,c));
+ const tb=$('#tb');tb.style.transition='none';tb.style.width='100%';tb.offsetWidth;tb.style.transition='width 8s linear';tb.style.width='0';g2.t=Date.now();g2.tm=setTimeout(()=>j2(null,c),8000)}
+function j2(b,c){if(g2.o)return;g2.o=1;clearTimeout(g2.tm);$$('#qo button').forEach(x=>{if(x.textContent==c)x.classList.add('ok')});
+ if(b&&b.textContent==c){const l=Math.max(0,8-(Date.now()-g2.t)/1000);g2.s+=100+Math.round(l*10)+g2.c*20;g2.c++;boom(b)}else{if(b)b.classList.add('no');g2.c=0}
+ $('#s2').textContent=g2.s;$('#c2').textContent=g2.c;setTimeout(nq2,1000)}
+r2();
+
+// Game 3: Buru Unsur
+const M3=[['golongan 17, periode 3','Cl'],['gas mulia, periode 2','Ne'],['logam alkali, periode 4','K'],['halogen, periode 2','F'],['unsur dengan Z = 26','Fe'],['metaloid, periode 3','Si'],['alkali tanah, periode 5','Sr'],['nonlogam, golongan 16, periode 2','O']];
+let g3={i:0,s:0,w:0,r:0,t:0};
+(function(){let h='';for(let c=1;c<=18;c++)h+=`<small style="grid-row:1;grid-column:${c+1};text-align:center;color:var(--mut);font-size:.6rem">${c}</small>`;for(let r=1;r<=5;r++)h+=`<small style="grid-row:${r+1};grid-column:1;color:var(--mut);align-self:center">${r}</small>`;SY.slice(0,54).forEach((s,i)=>{const[r,c]=pos(i+1);h+=`<button data-s="${s}" style="grid-row:${r+1};grid-column:${c+1}">${s}</button>`});$('#mt').innerHTML=h})();
+$('#mq').textContent='Siap? Temukan 8 unsur di tabel periodik secepat mungkin!';
+function n3(){$$('#mt .hl').forEach(x=>x.classList.remove('hl'));if(g3.i>=8){g3.r=0;$('#mq').textContent=`Selesai! Skor ${g3.s} · ${Math.round((Date.now()-g3.t)/1000)} detik 🏆`;$('#hb3').style.display='';$('#hb3').textContent='↻ Main lagi';return}
+ g3.w=0;g3.r=1;$('#mq').textContent='Temukan: '+M3[g3.i][0];$('#m3').textContent=(g3.i+1)+'/8';$('#hb3').style.display='none'}
+$('#hb3').onclick=()=>{$$('#mt button').forEach(b=>{b.className='';b.style.background='';b.style.color=''});g3={i:0,s:0,w:0,r:1,t:Date.now()};$('#s3').textContent=0;n3()};
+$('#mt').onclick=e=>{const b=e.target.closest('button');if(!b||!g3.r)return;const t=M3[g3.i][1];
+ if(b.dataset.s==t){const k=CT[cat(SY.indexOf(t)+1)][1];b.style.background=k;b.style.color='#06121f';b.className='ok3';g3.r=0;g3.s+=Math.max(20,100-g3.w*30);$('#s3').textContent=g3.s;boom(b);setTimeout(()=>{g3.i++;n3()},700)}
+ else{g3.w++;b.classList.add('no');setTimeout(()=>b.classList.remove('no'),450);if(g3.w>=2)$$('#mt button').forEach(x=>x.dataset.s==t&&x.classList.add('hl'))}};
+
+// ===== Detail tabel periodik =====
+const NM="Hidrogen,Helium,Litium,Berilium,Boron,Karbon,Nitrogen,Oksigen,Fluor,Neon,Natrium,Magnesium,Aluminium,Silikon,Fosfor,Belerang,Klorin,Argon,Kalium,Kalsium,Skandium,Titanium,Vanadium,Kromium,Mangan,Besi,Kobalt,Nikel,Tembaga,Seng,Galium,Germanium,Arsen,Selenium,Bromin,Kripton,Rubidium,Stronsium,Itrium,Zirkonium,Niobium,Molibdenum,Teknesium,Rutenium,Rodium,Paladium,Perak,Kadmium,Indium,Timah,Antimon,Telurium,Iodin,Xenon,Sesium,Barium,Lantanum,Serium,Praseodimium,Neodimium,Prometium,Samarium,Europium,Gadolinium,Terbium,Disprosium,Holmium,Erbium,Tulium,Iterbium,Lutesium,Hafnium,Tantalum,Wolfram,Renium,Osmium,Iridium,Platina,Emas,Raksa,Talium,Timbal,Bismut,Polonium,Astatin,Radon,Fransium,Radium,Aktinium,Torium,Protaktinium,Uranium,Neptunium,Plutonium,Amerisium,Kurium,Berkelium,Kalifornium,Einsteinium,Fermium,Mendelevium,Nobelium,Lawrensium,Rutherfordium,Dubnium,Seaborgium,Bohrium,Hasium,Meitnerium,Darmstadtium,Roentgenium,Kopernisium,Nihonium,Flerovium,Moskovium,Livermorium,Tenesin,Oganesson".split(','),
+AM="1.008,4.0026,6.94,9.0122,10.81,12.011,14.007,15.999,18.998,20.180,22.990,24.305,26.982,28.085,30.974,32.06,35.45,39.948,39.098,40.078,44.956,47.867,50.942,51.996,54.938,55.845,58.933,58.693,63.546,65.38,69.723,72.630,74.922,78.971,79.904,83.798,85.468,87.62,88.906,91.224,92.906,95.95,98,101.07,102.91,106.42,107.87,112.41,114.82,118.71,121.76,127.60,126.90,131.29,132.91,137.33,138.91,140.12,140.91,144.24,145,150.36,151.96,157.25,158.93,162.50,164.93,167.26,168.93,173.05,174.97,178.49,180.95,183.84,186.21,190.23,192.22,195.08,196.97,200.59,204.38,207.2,208.98,209,210,222,223,226,227,232.04,231.04,238.03,237,244,243,247,247,251,252,257,258,259,266,267,268,269,270,277,278,281,282,285,286,289,290,293,294,294".split(','),
+EN="2.2,0,.98,1.57,2.04,2.55,3.04,3.44,3.98,0,.93,1.31,1.61,1.9,2.19,2.58,3.16,0,.82,1,1.36,1.54,1.63,1.66,1.55,1.83,1.88,1.91,1.9,1.65,1.81,2.01,2.18,2.55,2.96,3,.82,.95,1.22,1.33,1.6,2.16,1.9,2.2,2.28,2.2,1.93,1.69,1.78,1.96,2.05,2.1,2.66,2.6".split(',').map(Number);
+const SU=['1s','2s','2p','3s','3p','4s','3d','4p','5s','4d','5p','6s','4f','5d','6p','7s','5f','6d','7p'],CP={s:2,p:6,d:10,f:14},NG=[[86,'Rn'],[54,'Xe'],[36,'Kr'],[18,'Ar'],[10,'Ne'],[2,'He']],
+XC={24:['4s','3d',1],29:['4s','3d',1],41:['5s','4d',1],42:['5s','4d',1],44:['5s','4d',1],45:['5s','4d',1],46:['5s','4d',2],47:['5s','4d',1],57:['4f','5d',1],58:['4f','5d',1],64:['4f','5d',1],78:['6s','5d',1],79:['6s','5d',1],89:['5f','6d',1],90:['5f','6d',2],91:['5f','6d',1],92:['5f','6d',1],93:['5f','6d',1],96:['5f','6d',1],103:['6d','7p',1]};
+function cfg(z){let r=z;const m={};SU.forEach(k=>{const n=Math.min(r,CP[k[1]]);if(n>0)m[k]=n;r-=n});const x=XC[z];if(x){m[x[0]]-=x[2];m[x[1]]=(m[x[1]]||0)+x[2]}return m}
+const rd=z=>z==43||z==61||z>=84&&z<=89||z>=93,stt=z=>[1,2,7,8,9,10,17,18,36,54,86].includes(z)?['Gas',0]:z==35||z==80?['Cair',1]:z>=104?['Sintetis',3]:['Padat',2];
+const pc=(z,md)=>{const m=+AM[z-1];if(md==0)return CT[cat(z)][1];if(md==1)return['#5ab0ff','#ffa94d','#c8f26b','#b9a7ff'][stt(z)[1]];if(md==2)return`hsl(${190+Math.min(m,300)/300*140},85%,${78-m/300*22}%)`;const e=EN[z-1];return e?`hsl(${210-e/4*190},85%,62%)`:'#6b7c8f'};
+let xs={z:11,sh:[2,8,1],col:'#ff6b6b'},xmd=0;
+SY.forEach((s,i)=>{const z=i+1,[r,c]=pos(z),p=+AM[i];$('#xt').insertAdjacentHTML('beforeend',`<button class="xb" data-z="${z}" title="${NM[i]}" style="grid-row:${r};grid-column:${c};--d:${(r+c)*2}"><i>${z}</i><b>${s}</b><u>${p<10?p.toFixed(2):p.toFixed(1)}</u></button>`)});
+function sel(z){const m=cfg(z),ks=Object.keys(m).filter(k=>m[k]>0).sort((a,b)=>a[0]-b[0]||'spdf'.indexOf(a[1])-'spdf'.indexOf(b[1])),nc=NG.find(g=>z>g[0]),core=nc?cfg(nc[0]):{},sh=[0,0,0,0,0,0,0];ks.forEach(k=>sh[k[0]-1]+=m[k]);while(!sh[sh.length-1])sh.pop();
+ const[r,c]=pos(z),g=r>8?null:c,p=r>8?(r==9?6:7):r,val=g?(g<=2?g:g>=13?(z==2?2:g-10):'bervariasi'):'bervariasi',ms=rd(z)?`[${AM[z-1]}]`:AM[z-1],e=EN[z-1],col=CT[cat(z)][1],
+ cf=(nc?'['+nc[1]+'] ':'')+ks.filter(k=>core[k]!=m[k]).map(k=>k+'<sup>'+m[k]+'</sup>').join(' ');
+ xs={z,sh,col};$$('.xb').forEach(b=>b.classList.toggle('sel',b.dataset.z==z));
+ $('#xd').innerHTML=`<div style="display:flex;gap:14px;align-items:center;margin-top:8px"><div class="tile" style="--c:${col}"><small>${z}</small><b>${SY[z-1]}</b><em>${ms}</em></div><div><h3 style="font-size:clamp(1.2rem,2.4vw,2rem);font-weight:800">${NM[z-1]}</h3><p style="color:var(--mut)">${CT[cat(z)][0]} · ${stt(z)[0]}</p></div></div><div class="fg"><div class="fc"><span>Massa atom (Ar)</span><b>${ms}</b></div><div class="fc"><span>Nomor atom (Z)</span><b>${z}</b></div><div class="fc"><span>Golongan</span><b>${g||'Blok f'}</b></div><div class="fc"><span>Periode</span><b>${p}</b></div><div class="fc"><span>Elektron valensi</span><b>${val}</b></div><div class="fc"><span>Elektronegativitas</span><b>${e?e.toFixed(2):'—'}</b></div><div class="fc w"><span>Konfigurasi elektron</span><b>${cf}</b></div><div class="fc w"><span>Elektron per kulit</span><b>${sh.join(' · ')}</b></div></div>`}
+function paint(){$$('.xb').forEach(b=>b.style.background=pc(+b.dataset.z,xmd));$('#xl').innerHTML=[Object.values(CT).map(k=>`<span class="chip" style="border-color:${k[1]};color:${k[1]}">${k[0]}</span>`).join(''),['Gas','Cair','Padat','Sintetis'].map((t,i)=>`<span class="chip" style="border-color:${pc(1,1)&&['#5ab0ff','#ffa94d','#c8f26b','#b9a7ff'][i]};color:${['#5ab0ff','#ffa94d','#c8f26b','#b9a7ff'][i]}">${t}</span>`).join(''),'<p style="color:var(--mut)">Biru kehijauan = ringan, merah muda = berat.</p>','<p style="color:var(--mut)">Biru = elektronegativitas rendah, oranye = tinggi, abu = tidak ada data.</p>'][xmd]}
+$('#xm').innerHTML=['Kategori','Wujud','Massa atom','Elektronegativitas'].map((t,i)=>`<button class="gb${i?'':' ok'}" data-m="${i}" style="font-size:.8rem;padding:.35em 1em">${t}</button>`).join('');
+$('#xm').onclick=e=>{const b=e.target.closest('button');if(!b)return;xmd=+b.dataset.m;$$('#xm button').forEach(x=>x.classList.toggle('ok',x==b));paint()};
+$('#xt').onclick=e=>{const b=e.target.closest('button');if(b)sel(+b.dataset.z)};$('#xt').onmouseover=e=>{const b=e.target.closest('button');if(b&&+b.dataset.z!=xs.z)sel(+b.dataset.z)};
+sc('cx',t=>{const sh=xs.sh,ns=sh.length,o=[{k:'s',p:[0,0,0],r:.1,c:xs.col,g:1}];sh.forEach((n,k)=>{const rr=.28+k*.55/Math.max(ns-1,2),tl=[k*1.1+.4,k*.8+.3],pt=a=>R([rr*Math.cos(a),0,rr*Math.sin(a)],tl[0],tl[1]);for(let i=0;i<48;i++)o.push({k:'l',p:pt(i/48*6.283),q:pt((i+1)/48*6.283),c:'rgba(34,227,255,.28)',w:1.5});for(let i=0;i<n;i++)o.push({k:'s',p:pt(t/(900+k*350)*(k%2?-1:1)+i*6.283/n),r:.035,c:'#22e3ff',g:xs.z<41})});return o});
+paint();sel(11);
+
+// Latar partikel
+const fx=$('#fx'),fc=fx.getContext('2d'),PS=Array.from({length:55},()=>({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*2e-4,vy:(Math.random()-.5)*2e-4}));
+function bgf(){const w=fx.width=innerWidth,h=fx.height=innerHeight;fc.clearRect(0,0,w,h);PS.forEach((p,i)=>{p.x=(p.x+p.vx+1)%1;p.y=(p.y+p.vy+1)%1;fc.fillStyle='rgba(34,227,255,.5)';fc.beginPath();fc.arc(p.x*w,p.y*h,1.8,0,6.283);fc.fill();for(let j=i+1;j<PS.length;j++){const q=PS[j],dx=(p.x-q.x)*w,dy=(p.y-q.y)*h,dd=dx*dx+dy*dy;if(dd<14000){fc.strokeStyle=`rgba(34,227,255,${.18*(1-dd/14000)})`;fc.beginPath();fc.moveTo(p.x*w,p.y*h);fc.lineTo(q.x*w,q.y*h);fc.stroke()}}})}
+function loop(t){bgf();cvs.forEach(o=>{if(o.s.classList.contains('on'))draw(o,t)});requestAnimationFrame(loop)}
+go(0);requestAnimationFrame(loop);
+</script></body></html>
